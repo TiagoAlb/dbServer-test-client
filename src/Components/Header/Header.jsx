@@ -35,7 +35,7 @@ export default function Header(props) {
             <div></div>
           }
 
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="subtitle1" fontFamily="Arial" className={classes.title}>
             Aos famintos da DBServer
           </Typography>
           <IconButton
