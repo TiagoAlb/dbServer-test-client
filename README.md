@@ -4,7 +4,7 @@ Foi configurado o projeto em um servidor externo, para facilitar o projeto da eq
 Link do projeto: http://ec2-18-229-155-222.sa-east-1.compute.amazonaws.com:3000/
 Para testes de requisições a API: http://ec2-18-229-155-222.sa-east-1.compute.amazonaws.com:8080/
 
-## Client-Side
+# Client-Side
 
 A aplicação foi desenvolvida utilizando, para o lado do cliente, React na sua nova versão com uso de Hooks. Para instalção dos pacotes externos do projeto, é necessária a instalação do NodeJS. Veja mais em: https://nodejs.org/en/
 
@@ -14,11 +14,11 @@ Com o NodeJS instalado, rode o seguinte comando no diretório do projeto:
 Após a instalação dos pacotes o comando a baixo iniciará o servidor do lado do cliente:
 ### `npm start`
 
-## Server-Side
+# Server-Side
 
 Para o lado do servidor, foi utilizado o framework Spring Boot na versão 2.2.4. Inicialmente, para facilitar a configuração do projeto a quem fosse testar, iniciou-se o desenvolvimento com gravação dos dados em arquivos txt em diretório. Porém, esta pratica estava tomando muito tempo, fazendo com que fosse alterado para o banco de dados. O banco de dados utilizado foi o MySQL, com utilização do Hibernate para criação de tabelas e comunicação com banco de dados.
 
-# Banco de dados
+### Banco de dados
 
 Usuário: root
 Senha: root
