@@ -1,72 +1,78 @@
-<<<<<<< HEAD
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Servidor de aplicação
 
-## Available Scripts
+Foi configurado o projeto em um servidor externo, para facilitar o projeto da equipe. 
+Link do projeto: http://ec2-18-229-155-222.sa-east-1.compute.amazonaws.com:3000/
+Para testes de requisições a API: http://ec2-18-229-155-222.sa-east-1.compute.amazonaws.com:8080/
 
-In the project directory, you can run:
+## Client-Side
 
+A aplicação foi desenvolvida utilizando, para o lado do cliente, React na sua nova versão com uso de Hooks. Para instalção dos pacotes externos do projeto, é necessária a instalação do NodeJS. Veja mais em: https://nodejs.org/en/
+
+Com o NodeJS instalado, rode o seguinte comando no diretório do projeto:
+### `npm install`
+
+Após a instalação dos pacotes o comando a baixo iniciará o servidor do lado do cliente:
 ### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Server-Side
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Para o lado do servidor, foi utilizado o framework Spring Boot na versão 2.2.4. Inicialmente, para facilitar a configuração do projeto a quem fosse testar, iniciou-se o desenvolvimento com gravação dos dados em arquivos txt em diretório. Porém, esta pratica estava tomando muito tempo, fazendo com que fosse alterado para o banco de dados. O banco de dados utilizado foi o MySQL, com utilização do Hibernate para criação de tabelas e comunicação com banco de dados.
 
-### `npm test`
+## Endpoints
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Foram criados endpoints de cominicação do lado do servidor para comunicação entre cliente e server, dentre eles estão:
+GET:
+Listar usuários disponíveis para votação: /api/users
+Listar restaurantes: /api/restaurants
+Listar restaurantes da última votação com contagem de votos: /api/restaurants/voting
 
-### `npm run build`
+POST:
+Criar novo usuário: /api/users
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+PUT:
+Votar em um restaurante: /api/users/{userId}/restaurants/{restaurantId}/vote
+Finalizar votação: /api/restaurants/voting/end
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Exceções de erro da API:
+- Usuário não encontrado!
+- Restaurante não encontrado!
+- Erro ao buscar contagem de votos!
+- Votação não encontrada!
+- Este restaurante já ganhou a votação nesta semana!
+- O usuário já realizou seu voto!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Pesquisa de Restaurantes
 
-### `npm run eject`
+A listagem dos restaurantes(raio de 2km da DBServer no Tecnopuc) foi realizada com base em uma pesquisa a API Places do Google. Abaixo estão alguns endpoints de exemplo nos testes para pesquisa:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Listagem de restaurantes:
+https://maps.googleapis.com/maps/api/place/nearbysearch/json?type=restaurant&radius=2000&location=-30.0596914,-51.173819&key=AIzaSyCECNy_clrtfjPtZqV9r3DFYeN2f7Se-r8
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Busca por foto do estabelecimento:
+https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&photoreference=CmRaAAAAN3TvYIPdyPJIeE1tOXP9Gs681JjYZmsRMLWOL-fa1C7RPFTVh6wz_od9Mm1RPMMpEuoGqVWu6LD5jALrtT9vJqvaWzPTOt0ow1ZTrO01rBDqETUoMig0QRHbxCfIRezPEhAiWclnLe3IXjLeZtQiK9EZGhQCrREf3KGLTnWvCQZklNaUX9s6Gg&key=AIzaSyCECNy_clrtfjPtZqV9r3DFYeN2f7Se-r8
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Busca de detalhes de um estabelecimento:
+https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJG9681hp4GZURCWloUO0sHkg&fields=place_id,name,formatted_phone_number,photo,opening_hours,vicinity&key=AIzaSyCECNy_clrtfjPtZqV9r3DFYeN2f7Se-r8
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Foi utilizado o Postman verificação de todos os endpoints da aplicação e externos. Caso desejem, posso compartilhar o workspace para o email de alguém (Já possui os objetos de envio também). Abaixo o link para a collection:
+https://www.postman.com/collections/dd1b179ed4781c972972
 
-## Learn More
+## Funcionamento básico do sistema:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- O término da votação será reaizado as 11h e 30min de todos os dias, para que todos possam se despir de preconceitos e preparar seu psicologico antes do almoço.
+- Ao acessar o sistema, caso a votação não esteja encerrada, será mostrado um timer com o tempo restante e lista(caso haja) de usuários que se cadastraram mas não votaram ainda. É possível também incluir um novo.
+- Ao clicar em um usuário ou incluir um novo, o sistema irá direcionar para a tela de restaurantes, onde será mostado todos os restaurantes em um raio de 2km do local de trabalho da equipe (para que todos possam voltar a tempo) e um botão de coração para realizar a votação.
+- Ao realizar a votação, o usuário será automaticamente direcionado para a tela de inicio e será informado os restaurantes já votados e quantos votos cada.
+- Caso o usuário desista de votar, é possível retornar a tela anterior através do botão na barra ao topo da página.
+- Ao término da votação, o timer é finalizado e o ganhador é informado.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Desenvolvimentos futuros:
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-=======
-# dbServerTest-Client
->>>>>>> 4c04aa9652406274b6df0f2d56cd66ff47183416
+O sistema foi realizado buscando otimizar o tempo de desenvolvimento para entrega, portanto alguns pontos ainda ficaram faltando, o que seria interessante para realização futura:
+- Paginação da listagem de restaurantes
+- Aumento do raio de busca dos restaurantes
+- Inclusão de barra de pesquisa de restaurantes
+- Autenticação de usuário (para que ninguém vote na vez do outro) e inclusão de CPF para previnir usuários duplicados
+- Roteamento das páginas na parte do cliente
+- Inclusão de componentes para mensagens personalizadas na parte do cliente
+- Inclusão de camada de segurança na parte do servidor, com controle de requisições
