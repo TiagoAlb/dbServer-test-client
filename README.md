@@ -3,11 +3,14 @@
 Foi configurado o projeto em um servidor externo, para facilitar o projeto da equipe. 
 
 Link do projeto: http://ec2-18-229-155-222.sa-east-1.compute.amazonaws.com:3000/
+
 Para testes de requisições a API: http://ec2-18-229-155-222.sa-east-1.compute.amazonaws.com:8080/
 
 # Client-Side
 
-A aplicação foi desenvolvida utilizando, para o lado do cliente, React na sua nova versão com uso de Hooks. Para instalção dos pacotes externos do projeto, é necessária a instalação do NodeJS. Veja mais em: https://nodejs.org/en/
+A aplicação foi desenvolvida utilizando, para o lado do cliente, React na sua nova versão com uso de Hooks. Para instalção dos pacotes externos do projeto, é necessária a instalação do NodeJS. 
+
+Veja mais em: https://nodejs.org/en/
 
 Com o NodeJS instalado, rode o seguinte comando no diretório do projeto:
 ### `npm install`
@@ -37,6 +40,7 @@ Criar novo usuário: /api/users
 
 PUT:
 Votar em um restaurante: /api/users/{userId}/restaurants/{restaurantId}/vote
+\n
 Finalizar votação: /api/restaurants/voting/end
 
 # Exceções de erro da API:
