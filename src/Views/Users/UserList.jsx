@@ -8,7 +8,7 @@ import UserService from '../../Services/UserService/UserService';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        width: '100%',
+        width: '90%',
         maxWidth: 360,
         fontFamily: 'helvetica'
     },

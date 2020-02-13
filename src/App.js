@@ -88,13 +88,11 @@ export default function App() {
           : ''}
       </div>
       {winner === '{}' && (!error || seconds > 0) ?
-        <div>
           <div className="App-UserList">
             {logged || sessionStorage.getItem('user') ?
               <RestaurantsList user={JSON.parse(sessionStorage.getItem('user'))} logout={handleLogOut} showResult={handleShowResultChange} /> : <UserList onLogin={handleLogIn} />
             }
           </div>
-        </div>
         : ''}
       <div>
         {showResult ?
