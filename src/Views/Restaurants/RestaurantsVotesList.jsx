@@ -4,7 +4,7 @@ import {
     Grid, Typography, CircularProgress
 } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
-import RestaurantsService from '../../Services/RestaurantsService/RestaurantsService';
+import RestaurantsVotingService from '../../Services/RestaurantsService/RestaurantsVotingService';
 import Card from '../../Components/Card/Card';
 
 const useStyles = makeStyles(theme => ({
@@ -32,33 +32,23 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function RestaurantsList(props) {
+export default function RestaurantsVotesList(props) {
     const classes = useStyles();
-    const [restaurants, setRestaurants] = useState(false);
+    const [restaurants, setRestaurants] = useState([]);
     const [message, setMessage] = useState(
         <div className={classes.loading}>
             <CircularProgress color="secondary" />
             <span>CARREGANDO RESTAURANTES...</span>
         </div>);
-    const restaurantsService = new RestaurantsService();
+    const restaurantsVotingService = new RestaurantsVotingService();
 
     const listRestaurants = () => {
-        restaurantsService.get((success) => {
-            if (success.length > 0)
-                setRestaurants(success);
-            else
-                setMessage(<div>Não existem restaurantes para exibir</div>);
-        },
-            (error) => {
-                alert(error);
-            });
-    };
-
-    const vote = (restaurantID) => {
-        restaurantsService.put(`api/users/${JSON.parse(sessionStorage.getItem('user')).id}/restaurants/${restaurantID}/vote`,
+        restaurantsVotingService.get(
             (success) => {
-                props.showResult(true, JSON.parse(sessionStorage.getItem('user')).name);
-                props.logout();
+                if (success.length > 0)
+                    setRestaurants(success);
+                else
+                    setMessage(<div>Não existem restaurantes para exibir</div>);
             }, (error) => {
                 alert(error);
             });
@@ -71,14 +61,15 @@ export default function RestaurantsList(props) {
     return (
         <div className={classes.root}>
             <div className={classes.title}>
-                <Typography variant="subtitle1">OLÁ, {props.user.name.toUpperCase()}! ESCOLHA SEU RESTAURANTE FAVORITO DE HOJE</Typography>
+                <Typography variant="subtitle1">PARABÉNS {props.userName.toUpperCase()}! VOTO REALIZADO.
+                    VOCÊ NÃO PODE MAIS PARTICIPAR HOJE, MAS VEJA O ANDAMENTO DA VOTAÇÃO:</Typography>
             </div>
             <Grid container>
                 {
                     restaurants.length > 0 ?
                         restaurants.map(prop => (
                             <Grid item md={3} sm={6} xs={12}>
-                                <Card key={prop.place_id} prop={prop} vote={vote} />
+                                <Card key={prop.place_id} prop={prop} voteDisabled />
                             </Grid>
                         ))
                         : message}

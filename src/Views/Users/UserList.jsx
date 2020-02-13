@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, Typography, 
-    TextField, Button } from '@material-ui/core';
+import {
+    List, ListItem, ListItemText, Typography,
+    TextField, Button
+} from '@material-ui/core';
 import UserService from '../../Services/UserService/UserService';
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +21,8 @@ const useStyles = makeStyles(theme => ({
 
     title: {
         color: '#233170',
-        padding: theme.spacing(1)
+        padding: theme.spacing(1),
+        minHeight: theme.spacing(4)
     },
 
     subTitle: {
@@ -29,36 +32,34 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const UserList = props => {
+export default function UserList(props) {
     const classes = useStyles();
     const userService = new UserService();
-    const [selectedIndex, setSelectedIndex] = useState(1);
     const [user, setUser] = useState({ id: 0, name: '', lastVote: '' });
     const [users, setUsers] = useState([]);
+
+    const addUser = () => {
+        userService.post(user,
+            success => {
+                props.onLogin(success);
+            }, error => {
+                alert("Erro ao gravar usuario!");
+            }
+        );
+    };
+
+    const listUser = () => {
+        userService.get((success) => {
+            setUsers(success);
+        },
+            (error) => {
+                alert(error);
+            });
+    };
 
     useEffect(() => {
         listUser();
     }, []);
-
-    const addUser = () => { 
-        userService.post(user, 
-        success => {
-            props.onLogin();
-        }, error => {
-            alert("Erro ao gravar usuario!");
-        }
-        );
-    };
-
-    const listUser = () => { 
-        userService.get((success) => {
-            console.log(success);
-            setUsers(success);
-        }, 
-        (error) => {
-            alert(error);
-        });
-    };
 
     function handleUserChange(e) {
         setUser({ id: 0, name: e.target.value });
@@ -77,13 +78,14 @@ const UserList = props => {
                                 <ListItem
                                     key={prop.id}
                                     button
-                                    selected={selectedIndex === 2}
-                                    onClick={addUser}
+                                    onClick={() => { props.onLogin(prop) }}
                                 >
                                     <ListItemText primary={prop.name.toUpperCase()} />
                                 </ListItem>
                             ))
-                        : <div>Não existem usuários cadastrados</div>
+                            : <Typography align="center" variant="subtitle1">
+                                Não existem usuários para votação
+                          </Typography>
                     }
                 </List>
             </div>
@@ -91,21 +93,19 @@ const UserList = props => {
                 <Typography align="left" color="textPrimary" variant="subtitle2" className={classes.subTitle}>
                     Caso não esteja na lista, adicione um novo:
                 </Typography>
-                <TextField id="outlined-search" label="Diga seu nome" 
-                    type="text" fullWidth variant="outlined" 
-                    onChange={handleUserChange}/>
+                <TextField id="outlined-search" label="Diga seu nome"
+                    type="text" fullWidth variant="outlined"
+                    onChange={handleUserChange} />
                 {user.name ?
-                    <Button variant="contained" color="secondary" 
+                    <Button variant="contained" color="secondary"
                         className={classes.subTitle} disableElevation fullWidth
                         onClick={addUser}>
                         Adicionar
                     </Button>
-                        :
+                    :
                     ''
                 }
             </div>
         </div>
     );
-};
-
-export default UserList;
+}

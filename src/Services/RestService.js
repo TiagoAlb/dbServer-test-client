@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default class RestService {
-    constructor(url){
+    constructor(url) {
         this.url = url;
     }
 
@@ -13,20 +13,38 @@ export default class RestService {
         };
         axios.post(this.url, JSON.stringify(item), options)
             .then(res => {
-                if(res.status==201) {
-                    sessionStorage.setItem('user', res.data);
-                    success();
+                if (res.status === 201) {
+                    success(res.data);
                 } else {
                     error(res);
                 }
+            }).catch(err => {
+                error(err.response.data.message);
+            });;
+    }
+
+    put(url, success, error) {
+        const options = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        axios.put(url, options)
+            .then(res => {
+                if (res.status === 200) {
+                    success(res.data);
+                } else {
+                    error(res);
+                }
+            }).catch(err => {
+                error(err.response.data.message);
             });
     }
 
     get(success, error) {
         axios.get(this.url)
             .then(res => {
-                if(res.status==200) {
-                    console.log(res);
+                if (res.status === 200) {
                     success(res.data);
                 } else {
                     error(res);
