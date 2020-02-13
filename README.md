@@ -30,15 +30,17 @@ Senha: root
 ## Endpoints
 
 Foram criados endpoints de cominicação do lado do servidor para comunicação entre cliente e server, dentre eles estão:
-GET:
-Listar usuários disponíveis para votação: /api/users
+### GET:
+Listar usuários disponíveis para votação: /api/
+
 Listar restaurantes: /api/restaurants
+
 Listar restaurantes da última votação com contagem de votos: /api/restaurants/voting
 
-POST:
+### POST:
 Criar novo usuário: /api/users
 
-PUT:
+### PUT:
 Votar em um restaurante: /api/users/{userId}/restaurants/{restaurantId}/vote
 
 Finalizar votação: /api/restaurants/voting/end
