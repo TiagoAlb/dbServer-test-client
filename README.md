@@ -39,8 +39,7 @@ POST:
 Criar novo usuário: /api/users
 
 PUT:
-Votar em um restaurante: /api/users/{userId}/restaurants/{restaurantId}/vote
-\n
+Votar em um restaurante: /api/users/{userId}/restaurants/{restaurantId}/vote    \n
 Finalizar votação: /api/restaurants/voting/end
 
 # Exceções de erro da API:
