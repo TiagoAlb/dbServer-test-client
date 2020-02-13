@@ -10,7 +10,7 @@ Para testes de requisições a API: http://ec2-18-229-155-222.sa-east-1.compute.
 
 A aplicação foi desenvolvida utilizando, para o lado do cliente, React na sua nova versão com uso de Hooks. Para instalção dos pacotes externos do projeto, é necessária a instalação do NodeJS. 
 
-Veja mais em: [NodeJS](]https://nodejs.org/en/)
+Veja mais em: [NodeJS](https://nodejs.org/en/)
 
 Com o NodeJS instalado, rode o seguinte comando no diretório do projeto:
 ### `npm install`
