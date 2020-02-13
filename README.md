@@ -18,6 +18,11 @@ Após a instalação dos pacotes o comando a baixo iniciará o servidor do lado 
 
 Para o lado do servidor, foi utilizado o framework Spring Boot na versão 2.2.4. Inicialmente, para facilitar a configuração do projeto a quem fosse testar, iniciou-se o desenvolvimento com gravação dos dados em arquivos txt em diretório. Porém, esta pratica estava tomando muito tempo, fazendo com que fosse alterado para o banco de dados. O banco de dados utilizado foi o MySQL, com utilização do Hibernate para criação de tabelas e comunicação com banco de dados.
 
+# Banco de dados
+
+Usuário: root
+Senha: root
+
 ## Endpoints
 
 Foram criados endpoints de cominicação do lado do servidor para comunicação entre cliente e server, dentre eles estão:
