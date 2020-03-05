@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { red, grey } from '@material-ui/core/colors';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,7 +24,8 @@ export default function Timer(props) {
         <div className={classes.root}>
             <div className={classes.title}>
                 <Typography variant="subtitle1">{props.seconds > 0 ? 'TEMPO PARA FINALIZAÇÃO DA VOTAÇÃO' : (props.error ? 'VOTAÇÃO ENCERRADA! NINGUÉM PARTICIPOU :(' : 'VOTAÇÃO ENCERRADA. VEJA O VENCEDOR:')}</Typography>
-            </div>
+           	<Typography variant="subtitle1">{props.seconds > 0 ? '' : (props.error ? ('PRÓXIMA VOTAÇÃO DIA ' + (new Date().getDate() + 1) + ' ÀS 00:00 HORAS') : '')}</Typography> 
+	   </div>
             {props.seconds > 0 ?
                 <CountdownTimer onEnd={props.endVoting} count={props.seconds} backgroundColor="transparent" color={red[600]} size={20} responsive />
                 : ''}
