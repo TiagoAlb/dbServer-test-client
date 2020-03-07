@@ -26,7 +26,7 @@ export default function Timer(props) {
     return (
         <div className={classes.root}>
             <div className={classes.title}>
-                <Typography variant="subtitle1">{props.seconds > 0 ? 'TEMPO PARA FINALIZAÇÃO DA VOTAÇÃO' : (props.error ? 'VOTAÇÃO ENCERRADA! NINGUÉM PARTICIPOU :(' : 'VOTAÇÃO ENCERRADA. VEJA O VENCEDOR:')}</Typography>
+                <Typography variant="subtitle1">{props.seconds > 0 ? 'TEMPO PARA FINALIZAÇÃO DA VOTAÇÃO' : (props.error ? 'VOTAÇÃO ENCERRADA! NINGUÉM PARTICIPOU. ' : 'VOTAÇÃO ENCERRADA. VEJA O VENCEDOR:')}</Typography>
                 <Typography variant="subtitle1">{props.seconds > 0 ? '' : (props.error ? ('PRÓXIMA VOTAÇÃO DIA ' + (new Date().getDate() + 1) + ' ÀS 00:00 HORAS') : '')}</Typography>
                 {props.seconds > 0 ?
                     <CountdownTimer onEnd={props.endVoting} count={props.seconds} backgroundColor="transparent" color={red[600]} size={20} responsive />
