@@ -25,13 +25,14 @@ Para o lado do servidor, foi utilizado o framework Spring Boot na versão 2.2.4 
 ### Banco de dados
 
 Usuário: root
+
 Senha: root
 
 ## Endpoints
 
 Foram criados endpoints de cominicação do lado do servidor para comunicação entre cliente e server, dentre eles estão:
 ### GET:
-Listar usuários disponíveis para votação: /api/
+Listar usuários disponíveis para votação: /api/users
 
 Listar restaurantes: /api/restaurants
 
