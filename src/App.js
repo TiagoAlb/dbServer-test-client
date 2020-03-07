@@ -7,6 +7,7 @@ import RestaurantsVotesList from './Views/Restaurants/RestaurantsVotesList.jsx';
 import UserList from './Views/Users/UserList.jsx';
 import RestaurantsVotingService from './Services/RestaurantsService/RestaurantsVotingService';
 import { makeStyles } from '@material-ui/core/styles';
+import LinkedInCard from './Components/LinkedInCard/LinkedInCard.jsx';
 import './App.css';
 
 const useStyles = makeStyles(theme => ({
@@ -88,17 +89,18 @@ export default function App() {
           : ''}
       </div>
       {winner === '{}' && (!error || seconds > 0) ?
-          <div className="App-UserList">
-            {logged || sessionStorage.getItem('user') ?
-              <RestaurantsList user={JSON.parse(sessionStorage.getItem('user'))} logout={handleLogOut} showResult={handleShowResultChange} /> : <UserList onLogin={handleLogIn} />
-            }
-          </div>
+        <div className="App-UserList">
+          {logged || sessionStorage.getItem('user') ?
+            <RestaurantsList user={JSON.parse(sessionStorage.getItem('user'))} logout={handleLogOut} showResult={handleShowResultChange} /> : <UserList onLogin={handleLogIn} />
+          }
+        </div>
         : ''}
       <div>
         {showResult ?
           <RestaurantsVotesList userName={userName} />
           : ''}
       </div>
+      <LinkedInCard />
     </div>
   );
 }
